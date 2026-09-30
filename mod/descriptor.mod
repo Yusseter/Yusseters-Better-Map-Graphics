@@ -1,10 +1,11 @@
-version="1.2.2"
+version="1.2.3"
 tags={
 	"Map"
 	"Graphics"
+	"1.20 'Crozier'"
 	"1.19 'Scribe'"
 	"1.18 'Crane'"
 }
 name="Yusseter's Better Map Graphics"
-supported_version="1.19.*.*"
+supported_version="1.20.*.*"
 remote_file_id="3378722062"

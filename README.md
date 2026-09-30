@@ -48,7 +48,7 @@ You can also change the paper map from the graphics settings!
 ## Compatibility
 <!--![Compatibility Banner](https://i.imgur.com/Gb717mI.png) -->
 
-- Compatible with **1.19 "Scribe"** update.
+- Compatible with **1.20 "Crozier"** update.
 - Works with pre-existing saves
 - No gameplay changes
 - Compatible with most other mods
