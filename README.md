@@ -1,36 +1,39 @@
-A visual overhaul that improves the clarity and aesthetics of the Crusader Kings III map while preserving the vanilla style.
+# Yusseter's Better Map Graphics
+
+A visual overhaul that improves the clarity and aesthetics of the Crusader Kings III map while using a new style.
 
 Terrain textures, borders, water reflections and map readability have been refined to create a cleaner and less visually noisy world map. The mod focuses purely on visual improvements, making the map easier to read without altering gameplay.
 
-_A subtle visual refinement rather than a complete redesign._
+*A subtle visual refinement rather than a complete redesign.*
 
 <!-- [**Discord**](https://discord.gg/pWFEBGhxjZ) -->
-[![Discord](https://i.imgur.com/O5zCAq0.png/#Discord-Server)](https://discord.gg/pWFEBGhxjZ)
+[![Discord](https://i.imgur.com/O5zCAq0.png)](https://discord.gg/pWFEBGhxjZ)
 
-Feel free to use my work in your mods — all I ask is that I am credited and (if possible) to give me a heads up. If you liked the mod, feel free to favorite and rate it up!
+If you liked the mod, feel free to star this repository!
 
-# Available On
-<!-- ![Available On Banner](https://i.imgur.com/xMSkexu.png/#Available_On-Banner) -->
+## Available On
+<!-- ![Available On Banner](https://i.imgur.com/xMSkexu.png) -->
 
 [![Paradox Mods](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/paradox-mods.png)](https://mods.paradoxplaza.com/mods/95923/Any)
 [![Steam](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/steam-workshop.png)](https://steamcommunity.com/workshop/filedetails/?id=3378722062)
 [![Nexus](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/nexus.png)](https://www.nexusmods.com/crusaderkings3/mods/266)
 
-# Manual Installation Steps
-<!-- ![Manual Installation Steps Banner](https://i.imgur.com/lwrhimB.png/#Manual_Installation_Steps-Banner) -->
+## Manual Installation Steps
+<!-- ![Manual Installation Steps Banner](https://i.imgur.com/lwrhimB.png) -->
 
- 1. Go to [releases](https://github.com/Yusseter/yb_map/releases) and find the latest version or the version you wish to download.
- 2. Download the file named **yb_map-\*version\*.zip** from the assets section.
- 3. Extract the contents to the following folder: `%USERPROFILE%\Documents\Paradox Interactive\Crusader Kings III\mod\`
+1. Open the [latest release](https://github.com/Yusseter/yb_map/releases/latest) or browse [all releases](https://github.com/Yusseter/yb_map/releases) to choose a different version.
+2. Download the `yb_map-<version>.zip` file from the release assets.
+3. Extract the contents to `%USERPROFILE%\Documents\Paradox Interactive\Crusader Kings III\mod\`.
 
 The mod folder should look something like this:
 
-<img src="https://i.imgur.com/JXIOOKs.png/#Mod-Folder-Screenshot">
+![Example mod installation folder](https://i.imgur.com/JXIOOKs.png)
 
-**NOTE**: When re-installing a mod, **delete the old version** of the mod first before copy and pasting the new one! While it's not always necessary, it's a good habit to do to prevent any potential issues.
+> [!NOTE]
+> When reinstalling, remove the previous `yb_map` folder before extracting the new version to avoid leaving obsolete files behind.
 
-# Features
-<!-- ![Features Banner](https://i.imgur.com/0LSDxsh.png/#Features-Banner) -->
+## Features
+<!-- ![Features Banner](https://i.imgur.com/0LSDxsh.png) -->
 
 - Cleaner and simpler terrain textures
 - Improved realm border visibility
@@ -40,18 +43,18 @@ The mod folder should look something like this:
 
 You can also change the paper map from the graphics settings!
 
-<img src="https://i.imgur.com/u8KjFsH.png/#Paper-Folder-Screenshot">
+![Paper map graphics settings](https://i.imgur.com/u8KjFsH.png)
 
-# Compatibility
-<!--![Compatibility Banner](https://i.imgur.com/Gb717mI.png/#Compatibility-Banner) -->
+## Compatibility
+<!--![Compatibility Banner](https://i.imgur.com/Gb717mI.png) -->
 
-- Compatible with latest CK3 **1.19 "Scribe" Update** with **All Under Heaven**
+- Compatible with **1.19 "Scribe"** update.
 - Works with pre-existing saves
 - No gameplay changes
 - Compatible with most other mods
 
-# Inspired By
-<!-- ![Inspired by Banner](https://i.imgur.com/w0zcMFk.png/#Inspired_by-Banner) -->
+## Inspired By
+<!-- ![Inspired by Banner](https://i.imgur.com/w0zcMFk.png) -->
 
 - [I miss Imperator (mb+ version)](https://steamcommunity.com/workshop/filedetails/?id=3374320356)
 - [Better Map Graphics Temporary Fix](https://steamcommunity.com/workshop/filedetails/?id=3338498817)
@@ -59,6 +62,6 @@ You can also change the paper map from the graphics settings!
 - [Simple border](https://steamcommunity.com/workshop/filedetails/?id=2749577487)
 - [Wasteland Border Colour Remover](https://steamcommunity.com/workshop/filedetails/?id=2687816934)
 
-Paper map artwork by [**AlphaQmaster**](https://steamcommunity.com/id/huntQ3715/myworkshopfiles) (Discord: [_hunter00001_](https://discordapp.com/users/427522651339358208))
+Paper map artwork by [**AlphaQmaster**](https://steamcommunity.com/id/huntQ3715/myworkshopfiles) (Discord: [hunter00001](https://discordapp.com/users/427522651339358208))
 
 **Thanks for your efforts!**
