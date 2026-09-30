@@ -1,18 +1,32 @@
-﻿#*.asset
-#*.json
-#*.editordata
-#*.particle2
-#*.settings
-#*.dds
-#*.jpg
-#*.png
-*.dll
-*.dylib
-*.exe
-*.anim
-*.mesh
-*.tga
-*.bin
-*.bank
-yb_map.mod
+﻿# OS and editor files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE, local editor and agent folders and files
+.vscode/*
+!.vscode/
+!.vscode/extensions.json
+!.vscode/settings.json
+.agents/
+.codex/
+.idea/
+.vs/
+.history/
+*.code-workspace
+
+# Temporary files
+~$*
+*.tmp
+*.bak
+
+# Local working folders
+.cache/
+tmp/
+temp/
 wip/
+development/local/
+
+# Release output
+dist/
+*.zip
