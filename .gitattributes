@@ -24,4 +24,4 @@
 *.tga binary
 
 # Git LFS
-mod/gfx/map/terrain/flat_maps/flatmap_yb_main.dds filter=lfs diff=lfs merge=lfs -text
+mod/gfx/map/terrain/flat_maps/flatmap_yb.dds filter=lfs diff=lfs merge=lfs -text
