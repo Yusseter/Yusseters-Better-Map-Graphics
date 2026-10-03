@@ -21,7 +21,7 @@ If you liked the mod, feel free to star this repository!
 ## Manual Installation Steps
 <!-- ![Manual Installation Steps Banner](https://i.imgur.com/lwrhimB.png) -->
 
-1. Open the [latest release](https://github.com/Yusseter/yb_map/releases/latest) or browse [all releases](https://github.com/Yusseter/yb_map/releases) to choose a different version.
+1. Open the [latest release](https://github.com/Yusseter/Yusseters-Better-Map-Graphics/releases/latest) or browse [all releases](https://github.com/Yusseter/Yusseters-Better-Map-Graphics/releases) to choose a different version.
 2. Download the `yb_map-<version>.zip` file from the release assets.
 3. Extract the contents to `%USERPROFILE%\Documents\Paradox Interactive\Crusader Kings III\mod\`.
 
@@ -41,7 +41,8 @@ The mod folder should look something like this:
 - Better map font transparency
 - A beautiful topographic-style paper map
 
-You can also change the paper map from the graphics settings!
+> [!TIP]
+> You can also change the paper map from the graphics settings!
 
 ![Paper map graphics settings](https://i.imgur.com/u8KjFsH.png)
 
