@@ -1,6 +1,5 @@
-param(
-    [switch]$Release
-)
+[CmdletBinding(SupportsShouldProcess = $true)]
+param()
 
 $ErrorActionPreference = "Stop"
 
@@ -310,16 +309,13 @@ $zipPath = Join-Path $distPath "yb_map-$version.zip"
 
 Write-Host "`nOutput: $zipPath"
 
-if (-not $Release) {
+if ($WhatIfPreference) {
     Write-Host "`nPREVIEW PASS" -ForegroundColor Green
     Write-Host "No files were changed."
-    Write-Host "Use -Release to create the package."
+    Write-Host "Run without -WhatIf to create the package."
     return
 }
 
-if (Test-Path -LiteralPath $zipPath) {
-    throw "Release ZIP already exists: $zipPath"
-}
 
 $localTexconv = Join-Path $repo "development\local\tools\texconv.exe"
 
@@ -523,7 +519,11 @@ try {
         $archive.Dispose()
     }
 
-    Move-Item -LiteralPath $tempZip -Destination $zipPath
+    [IO.File]::Move(
+        $tempZip,
+        $zipPath,
+        $true
+    )
 
     Write-Host "`n=== RELEASE PASS ===" -ForegroundColor Green
 
