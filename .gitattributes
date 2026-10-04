@@ -19,6 +19,8 @@
 *.settings text
 
 # Binary files
+*.gif binary
+*.jpg binary
 *.png binary
 *.dds binary
 *.tga binary

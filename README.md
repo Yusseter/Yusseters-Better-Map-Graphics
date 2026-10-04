@@ -7,19 +7,19 @@ Terrain textures, borders, water reflections and map readability have been refin
 *A subtle visual refinement rather than a complete redesign.*
 
 <!-- [**Discord**](https://discord.gg/pWFEBGhxjZ) -->
-[![Discord](https://i.imgur.com/O5zCAq0.png)](https://discord.gg/pWFEBGhxjZ)
+[![Discord](assets/community/discord_server.png)](https://discord.gg/pWFEBGhxjZ)
 
 If you liked the mod, feel free to star this repository!
 
 ## Available On
-<!-- ![Available On Banner](https://i.imgur.com/xMSkexu.png) -->
+<!-- ![Available On Banner](assets/banners/available_on_banner.png) -->
 
 [![Paradox Mods](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/paradox-mods.png)](https://mods.paradoxplaza.com/mods/95923/Any)
 [![Steam](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/steam-workshop.png)](https://steamcommunity.com/workshop/filedetails/?id=3378722062)
 [![Nexus](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/nexus.png)](https://www.nexusmods.com/crusaderkings3/mods/266)
 
 ## Manual Installation Steps
-<!-- ![Manual Installation Steps Banner](https://i.imgur.com/lwrhimB.png) -->
+<!-- ![Manual Installation Steps Banner](assets/banners/manual_installation_steps_banner.png) -->
 
 1. Open the [latest release](https://github.com/Yusseter/Yusseters-Better-Map-Graphics/releases/latest) or browse [all releases](https://github.com/Yusseter/Yusseters-Better-Map-Graphics/releases) to choose a different version.
 2. Download the `yb_map-<version>.zip` file from the release assets.
@@ -27,13 +27,13 @@ If you liked the mod, feel free to star this repository!
 
 The mod folder should look something like this:
 
-![Example mod installation folder](https://i.imgur.com/JXIOOKs.png)
+![Example mod installation folder](assets/guides/installation_folder.png)
 
 > [!NOTE]
 > When reinstalling, remove the previous `yb_map` folder before extracting the new version to avoid leaving obsolete files behind.
 
 ## Features
-<!-- ![Features Banner](https://i.imgur.com/0LSDxsh.png) -->
+<!-- ![Features Banner](assets/banners/features_banner.png) -->
 
 - Cleaner and simpler terrain textures
 - Improved realm border visibility
@@ -44,10 +44,10 @@ The mod folder should look something like this:
 > [!TIP]
 > You can also change the paper map from the graphics settings!
 
-![Paper map graphics settings](https://i.imgur.com/u8KjFsH.png)
+![Paper map graphics settings](assets/guides/paper_map_settings.png)
 
 ## Compatibility
-<!--![Compatibility Banner](https://i.imgur.com/Gb717mI.png) -->
+<!--![Compatibility Banner](assets/banners/compatibility_banner.png) -->
 
 - Compatible with **1.20 "Crozier"** update.
 - Works with pre-existing saves
@@ -55,7 +55,7 @@ The mod folder should look something like this:
 - Compatible with most other mods
 
 ## Inspired By
-<!-- ![Inspired by Banner](https://i.imgur.com/w0zcMFk.png) -->
+<!-- ![Inspired by Banner](assets/banners/inspired_by_banner.png) -->
 
 - [I miss Imperator (mb+ version)](https://steamcommunity.com/workshop/filedetails/?id=3374320356)
 - [Better Map Graphics Temporary Fix](https://steamcommunity.com/workshop/filedetails/?id=3338498817)
