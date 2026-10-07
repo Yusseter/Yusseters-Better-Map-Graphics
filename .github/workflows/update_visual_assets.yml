@@ -1,0 +1,63 @@
+name: Update visual assets
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+
+      - "assets/thumbnail/thumbnail_background.png"
+      - "assets/thumbnail/thumbnail_title_overlay.png"
+      - "assets/community/github_social_title_overlay.png"
+      - "scripts/update_visual_assets.py"
+      - "tests/test_update_visual_assets.py"
+      - ".github/workflows/update_visual_assets.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: visual-asset-maintenance
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v6
+        with:
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: Install visual asset dependencies
+        run: python -m pip install --disable-pip-version-check "pillow==12.0.0"
+
+      - name: Run visual asset regression tests
+        run: python -m unittest discover -s tests -p "test_update_visual_assets.py"
+
+      - name: Update visual assets
+        run: python scripts/update_visual_assets.py
+
+      - name: Commit visual asset changes
+        run: |
+          git add mod/thumbnail.png
+          git add assets/community/github_social_preview.jpg
+          git add assets/community/nexus_header.jpg
+
+          if git diff --cached --quiet; then
+            echo "No visual asset changes."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git commit -m "Update visual assets"
+          git push

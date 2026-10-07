@@ -1,4 +1,4 @@
-﻿# OS and editor files
+# OS and editor files
 .DS_Store
 Thumbs.db
 desktop.ini
@@ -14,6 +14,12 @@ desktop.ini
 .vs/
 .history/
 *.code-workspace
+
+# Python files
+__pycache__/
+*.pyc
+.venv/
+venv/
 
 # Temporary files
 ~$*
