@@ -66,3 +66,11 @@ The mod folder should look something like this:
 Paper map artwork by [**AlphaQmaster**](https://steamcommunity.com/id/huntQ3715/myworkshopfiles) (Discord: [hunter00001](https://discordapp.com/users/427522651339358208))
 
 **Thanks for your efforts!**
+
+## License
+
+Original source code in [`scripts/`](scripts/) and [`tests/`](tests/) is licensed under the [MIT License](LICENSE).
+
+The MIT License does not apply to files in `mod/` or to images, textures, and other visual assets. These materials retain their respective copyright and usage conditions.
+
+AlphaQmaster's paper map artwork is included with permission for use in this mod and is not licensed under MIT.
