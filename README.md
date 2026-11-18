@@ -1,7 +1,5 @@
 # Yusseter's Better Map Graphics
 
-A visual overhaul that improves the clarity and aesthetics of the Crusader Kings III map while using a new style.
-
 Terrain textures, borders, water reflections and map readability have been refined to create a cleaner and less visually noisy world map. The mod focuses purely on visual improvements, making the map easier to read without altering gameplay.
 
 *A subtle visual refinement rather than a complete redesign.*
@@ -11,14 +9,13 @@ Terrain textures, borders, water reflections and map readability have been refin
 
 If you liked the mod, feel free to star this repository!
 
-## Available On
-<!-- ![Available On Banner](assets/banners/available_on_banner.png) -->
+## Installation
 
 [![Paradox Mods](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/paradox-mods.png)](https://mods.paradoxplaza.com/mods/95923/Any)
 [![Steam](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/steam-workshop.png)](https://steamcommunity.com/workshop/filedetails/?id=3378722062)
 [![Nexus](https://raw.githubusercontent.com/hmlendea/readme-assets/master/badges/stores/nexus.png)](https://www.nexusmods.com/crusaderkings3/mods/266)
 
-## Manual Installation Steps
+### Manual Installation
 <!-- ![Manual Installation Steps Banner](assets/banners/manual_installation_steps_banner.png) -->
 
 1. Open the [latest release](https://github.com/Yusseter/Yusseters-Better-Map-Graphics/releases/latest) or browse [all releases](https://github.com/Yusseter/Yusseters-Better-Map-Graphics/releases) to choose a different version.
