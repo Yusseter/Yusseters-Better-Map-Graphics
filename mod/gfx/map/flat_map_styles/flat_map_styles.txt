@@ -3,6 +3,29 @@
 	#default = yes
 }
 
+paper_map_style_newsletter = {
+	texture = "titus_flatmap_newsletter.dds"
+
+	requires_newsletter = yes
+
+	is_shown = {
+		exists = culture
+		OR = {
+			government_has_flag = government_is_republic
+			government_has_flag = government_is_merchant
+			government_has_flag = government_is_landless_adventurer
+		}
+		NOR = {
+			culture_has_east_asian_heritage_pillar_trigger = yes
+			culture_has_south_asian_heritage_pillar_trigger = yes
+			culture_has_southeast_asian_heritage_pillar_trigger = yes
+			culture_has_east_central_asian_heritage_pillar_trigger = yes
+			culture_has_north_east_asian_heritage_pillar_trigger = yes
+		}
+	}
+	priority = 2
+}
+
 paper_map_style_tgp = {
 	texture = "flatmap_tgp.dds"
 
@@ -24,5 +47,5 @@ paper_map_style_tgp = {
 paper_map_style_yusseter = {
 	texture = "flatmap_yb.dds"
 	default = yes
-	priority = 2
+	priority = 3
 }

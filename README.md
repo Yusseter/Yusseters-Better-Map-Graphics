@@ -46,10 +46,10 @@ The mod folder should look something like this:
 ## Compatibility
 <!--![Compatibility Banner](assets/banners/compatibility_banner.png) -->
 
-- Compatible with **1.20 "Crozier"** update.
+- Compatible with **1.21 "Florin"** update.
 - Works with pre-existing saves
 - No gameplay changes
-- Compatible with most other mods
+- Compatible with most other mods that use the vanilla map projection
 
 ## Inspired By
 <!-- ![Inspired by Banner](assets/banners/inspired_by_banner.png) -->
