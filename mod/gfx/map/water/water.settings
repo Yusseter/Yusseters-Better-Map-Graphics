@@ -1,4 +1,5 @@
-﻿"WaterColorTexturePath" = "gfx/map/water/watercolor_rgb_waterspec_a.dds"
+# Texture paths
+"WaterColorTexturePath" = "gfx/map/water/watercolor_rgb_waterspec_a.dds"
 "AmbientNormalTexturePath" = "gfx/map/water/ambient_normal.dds"
 "FlowMapTexturePath" = "gfx/map/water/flowmap.dds"
 "FlowNormalTexturePath" = "gfx/map/water/flow_normal.dds"
@@ -8,67 +9,74 @@
 "FoamMapTexturePath" = "gfx/map/water/foam_map.dds"
 "FoamNoiseTexturePath" = "gfx/map/water/foam_noise.dds"
 
-"WaterColorShallow" = hsv{ 0.600 0.3 0.134375 }
-"WaterColorDeep" = hsv{ 0.55 0.2 0.022031 }
+# Water colors
+"WaterColorShallow" = hsv { 0.5 0.2 0.1 }
+"WaterColorDeep" = hsv { 0.6 0.3 0.06 }
 "WaterColorMapTint" = hsv{ 0 0 0 }
 "WaterColorMapTintAlpha" = 1
 "WaterColorMapTintStartHeight" = 0
 "WaterColorMapTintEndHeight" = 10000
 "WaterDiffuseMultiplier" = 0
 
-"WaterCubemapIntensity" = 0.5
+# Sky reflection and sun glare
+"WaterCubemapIntensity" = 0.2
 
-"WaterGlossBase" = 0.2
-"WaterGlossScale" = 1.5
-"WaterZoomedOutGlossScaleOffset" = 1.5
-"WaterSpecular" = 0.015
-"WaterSpecularFactor" = 0.08
+"WaterGlossBase" = 1
+"WaterGlossScale" = 20
+"WaterZoomedOutGlossScaleOffset" = 1.0
+"WaterSpecular" = 0.001
+"WaterSpecularFactor" = 0.03
 
-"WaterFoamScale" = 0.3
+# Foam
+"WaterFoamScale" = 0.8
 "WaterFoamDistortFactor" = 0.1
 "WaterFoamShoreMaskDepth" = 0
-"WaterFoamShoreMaskSharpness" = 1
-"WaterFoamNoiseScale" = 0.005
-"WaterFoamNoiseSpeed" = 0.025
+"WaterFoamShoreMaskSharpness" = 0.0
+"WaterFoamNoiseScale" = 0.002
+"WaterFoamNoiseSpeed" = 0.01
 "WaterFoamStrength" = 0.6
 
+# Camera angle and reflection
 "WaterZoomedInHeight" = 100
 "WaterZoomedOutHeight" = 750
 
-"WaterFresnelBias" = 0.05
+"WaterFresnelBias" = 0.01
 "WaterZoomedOutFresnelBiasOffset" = 0.025
 "WaterFresnelPow" = 5
 "WaterZoomedOutFresnelPowOffset" = 0.01
 "WaterReflectionFlatten" = 4
 
-"WaterRefractionShoreMaskDepth" = 3
-"WaterRefractionShoreMaskSharpness" = 1
-"WaterRefractionFadeStart" = 100
+# Refraction
+"WaterRefractionShoreMaskDepth" = 0
+"WaterRefractionShoreMaskSharpness" = 0.4
+"WaterRefractionFadeStart" = 200.0
 "WaterRefractionFadeEnd" = 500
-"WaterRefractionScale" = 500
+"WaterRefractionScale" = 0
 
-@wave_flatness = 1.5
+# Waves and flow
+@wave_flatness = 2
 
-"WaterWave1.Scale" = { 10 10 }
+"WaterWave1.Scale" = { 7 7 }
 "WaterWave1.Rotation" = -0.35
 "WaterWave1.Speed" = 0.01
 "WaterWave1.NormalFlatten" = @wave_flatness
 
-"WaterWave2.Scale" = { 2 1 }
+"WaterWave2.Scale" = { 0.7 0.7 }
 "WaterWave2.Rotation" = -1.6
 "WaterWave2.Speed" = 0.016
 "WaterWave2.NormalFlatten" = @wave_flatness
 
-"WaterWave3.Scale" = { 0.2 0.1 }
-"WaterWave3.Rotation" = 1.725075
+"WaterWave3.Scale" = { 0.3 0.3 }
+"WaterWave3.Rotation" = 1.7
 "WaterWave3.Speed" = 0.005
 "WaterWave3.NormalFlatten" = @wave_flatness
 
 "WaterFlowSpeed" = 0.005
 "WaterZoomedOutFlowSpeedOffset" = 0.03
 "WaterFlowNormalScale" = 0.025
-"WaterFlowNormalFlatten" = @wave_flatness
+"WaterFlowNormalFlatten" = 1.5
 
+# Shoreline and transparency
 "WaterFadeShoreMaskDepth" = 0.5
 "WaterFadeShoreMaskSharpness" = 5
 "WaterSeeThroughDensity" = 0.8
