@@ -22,6 +22,34 @@ function Get-Sha256 {
     return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash
 }
 
+function Assert-SafeInstalledPath {
+    param([string]$Relative)
+
+    if ([IO.Path]::IsPathRooted($Relative) -or $Relative -match '(^|[/\\])\.\.?(?:[/\\]|$)' -or $Relative -match ':') {
+        throw "Unsafe installed path: $Relative"
+    }
+    $part = $installedMod
+    foreach ($segment in ($Relative -split '[/\\]')) {
+        $part = Join-Path $part $segment
+        if (Test-Path -LiteralPath $part) {
+            if ((Get-Item -LiteralPath $part -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) {
+                throw "Symbolic link in installed path: $Relative"
+            }
+        }
+    }
+    if ((Get-Item -LiteralPath $installedMod -Force).Attributes -band [IO.FileAttributes]::ReparsePoint) {
+        throw "Installed mod directory is a symbolic link."
+    }
+}
+
+function Remove-ToRecycleBin {
+    param([string]$Path)
+    Add-Type -AssemblyName Microsoft.VisualBasic
+    [Microsoft.VisualBasic.FileIO.FileSystem]::DeleteFile(
+        $Path, 'OnlyErrorDialogs', 'SendToRecycleBin'
+    )
+}
+
 function Get-ArchiveHash {
     param($Entry)
 
@@ -218,17 +246,22 @@ if (-not [string]::IsNullOrWhiteSpace($Rollback)) {
         }
 
         foreach ($file in @($manifest.Files)) {
+            Assert-SafeInstalledPath $file.Relative
             $target = Join-Path $installedMod $file.Relative
 
-            if (-not (Test-Path -LiteralPath $target -PathType Leaf)) {
+            if ($file.State -eq "DELETE") {
+                if (Test-Path -LiteralPath $target) {
+                    throw "Deleted file reappeared: $($file.Relative)"
+                }
+            }
+            elseif (-not (Test-Path -LiteralPath $target -PathType Leaf)) {
                 throw "Installed file missing: $($file.Relative)"
             }
-
-            if ((Get-Sha256 $target) -ne $file.DeployedHash) {
+            elseif ((Get-Sha256 $target) -ne $file.DeployedHash) {
                 throw "Installed file was modified: $($file.Relative)"
             }
 
-            if ($file.State -eq "CHANGE") {
+            if ($file.State -in @("CHANGE", "DELETE")) {
                 $backupFile = Join-Path $snapshot (
                     "files\" + $file.Relative
                 )
@@ -271,13 +304,15 @@ if (-not [string]::IsNullOrWhiteSpace($Rollback)) {
             $target = Join-Path $installedMod $file.Relative
 
             if ($file.State -eq "CREATE") {
-                Remove-Item -LiteralPath $target -Force
+                Remove-ToRecycleBin $target
                 Write-Host "REMOVED  $($file.Relative)"
             }
             else {
                 $backupFile = Join-Path $snapshot (
                     "files\" + $file.Relative
                 )
+
+                New-Item -ItemType Directory -Path (Split-Path $target) -Force | Out-Null
 
                 Copy-Item -LiteralPath $backupFile `
                     -Destination $target -Force
@@ -582,6 +617,47 @@ Write-Host "Version         : $version"
 Write-Host "Release files   : $($sources.Count)"
 Write-Host "ZIP verification: PASS"
 
+# Inventories describe the files actually deployed, including packaged DDS hashes.
+$previousInventory = @()
+$hasInventory = $false
+$activeIndex = -1
+$states = @()
+if (Test-Path -LiteralPath $backups -PathType Container) {
+    foreach ($dir in @(Get-ChildItem -LiteralPath $backups -Directory | Sort-Object Name)) {
+        $path = Join-Path $dir.FullName 'manifest.json'
+        if (Test-Path -LiteralPath $path -PathType Leaf) {
+            $state = Get-Content -LiteralPath $path -Raw | ConvertFrom-Json
+            if ($state.Completed) { $states += $state }
+        }
+    }
+}
+for ($i = 0; $i -lt $states.Count; $i++) {
+    if (-not $states[$i].RolledBack) { $activeIndex = $i }
+}
+if ($activeIndex -ge 0 -and $null -ne $states[$activeIndex].Inventory) {
+    $previousInventory = @($states[$activeIndex].Inventory)
+    $hasInventory = $true
+}
+for ($i = $activeIndex + 1; $i -lt $states.Count; $i++) {
+    if ($states[$i].RolledBack -and $null -ne $states[$i].PreviousInventory) {
+        $previousInventory = @($states[$i].PreviousInventory)
+        $hasInventory = $true
+        break
+    }
+}
+if (-not $hasInventory -and $installedExists -and -not $legacyRepo) {
+    Write-Warning 'No previous complete deployment inventory; unrecognized installed files will be preserved.'
+    $previousInventory = @(
+        foreach ($file in $sources) {
+            Assert-SafeInstalledPath $file.Relative
+            $target = Join-Path $installedMod $file.Relative
+            if ((Test-Path -LiteralPath $target -PathType Leaf) -and (Get-Sha256 $target) -eq $file.Hash) {
+                [pscustomobject]@{ Relative = $file.Relative; Hash = $file.Hash }
+            }
+        }
+    )
+}
+
 # Calculate what will change.
 $changes = @(
     foreach ($file in $sources) {
@@ -610,6 +686,20 @@ $changes = @(
         }
     }
 )
+
+if ($installedExists -and -not $legacyRepo) {
+    foreach ($file in $previousInventory) {
+        if (@($sources | Where-Object { $_.Relative -eq $file.Relative }).Count -gt 0) { continue }
+        Assert-SafeInstalledPath $file.Relative
+        $target = Join-Path $installedMod $file.Relative
+        if (-not (Test-Path -LiteralPath $target)) { continue }
+        if (-not (Test-Path -LiteralPath $target -PathType Leaf) -or (Get-Sha256 $target) -ne $file.Hash) {
+            throw "Former deployment file was modified; preserving it: $($file.Relative)"
+        }
+        $changes += [pscustomobject]@{ State = 'DELETE'; Relative = $file.Relative; Hash = $file.Hash }
+    }
+}
+$newInventory = @($sources | ForEach-Object { [pscustomobject]@{ Relative = $_.Relative; Hash = $_.Hash } })
 
 $launcherState = if (-not (
     Test-Path -LiteralPath $installedLauncher -PathType Leaf
@@ -661,7 +751,7 @@ $changedFiles = @($changes | Where-Object { $_.State -ne "SAME" })
 
 if ($changedFiles.Count -eq 0 -and
     $launcherState -eq "SAME" -and
-    -not $legacyRepo) {
+    -not $legacyRepo -and $hasInventory) {
     Write-Host "`nDEPLOY PASS: Already up to date." -ForegroundColor Green
     return
 }
@@ -696,17 +786,21 @@ if ($installedExists -and -not $legacyRepo) {
             }
         )[0]
 
-        $target = Join-Path $installedMod $source.Relative
+        Assert-SafeInstalledPath $change.Relative
+        $target = Join-Path $installedMod $change.Relative
         $previousHash = $null
 
-        if ($change.State -eq "CHANGE") {
+        if ($change.State -in @("CHANGE", "DELETE")) {
             if (-not (Test-Path -LiteralPath $target -PathType Leaf)) {
-                throw "Target disappeared: $($source.Relative)"
+                throw "Target disappeared: $($change.Relative)"
             }
 
             $previousHash = Get-Sha256 $target
+            if ($change.State -eq 'DELETE' -and $previousHash -ne $change.Hash) {
+                throw "Target changed after planning: $($change.Relative)"
+            }
 
-            $backup = Join-Path $backupFiles $source.Relative
+            $backup = Join-Path $backupFiles $change.Relative
             $parent = Split-Path -Parent $backup
 
             New-Item -ItemType Directory -Path $parent -Force |
@@ -723,10 +817,10 @@ if ($installedExists -and -not $legacyRepo) {
         }
 
         $manifestFiles += [pscustomobject]@{
-            Relative     = $source.Relative
+            Relative     = $change.Relative
             State        = $change.State
             PreviousHash = $previousHash
-            DeployedHash = $source.Hash
+            DeployedHash = if ($change.State -eq 'DELETE') { $null } else { $source.Hash }
         }
     }
 
@@ -755,6 +849,8 @@ if ($installedExists -and -not $legacyRepo) {
         LauncherChanged      = $launcherChanged
         PreviousLauncherHash = $previousLauncherHash
         LauncherHash         = $launcherHash
+        PreviousInventory    = @($previousInventory)
+        Inventory            = @($newInventory)
         Files                = $manifestFiles
     }
 
@@ -776,6 +872,7 @@ if ($installedExists -and -not $legacyRepo) {
         Write-Host "`n=== APPLY CHANGES ===" -ForegroundColor Cyan
 
         foreach ($file in $manifestFiles) {
+            Assert-SafeInstalledPath $file.Relative
             $source = Join-Path $stage (
                 "yb_map\" + $file.Relative
             )
@@ -783,11 +880,11 @@ if ($installedExists -and -not $legacyRepo) {
             $target = Join-Path $installedMod $file.Relative
             $parent = Split-Path -Parent $target
 
-            if ((Get-Sha256 $source) -ne $file.DeployedHash) {
+            if ($file.State -ne 'DELETE' -and (Get-Sha256 $source) -ne $file.DeployedHash) {
                 throw "Staged file hash mismatch: $($file.Relative)"
             }
 
-            if ($file.State -eq "CHANGE") {
+            if ($file.State -in @("CHANGE", "DELETE")) {
                 if ((Get-Sha256 $target) -ne $file.PreviousHash) {
                     throw "Target changed after preflight: $($file.Relative)"
                 }
@@ -800,6 +897,13 @@ if ($installedExists -and -not $legacyRepo) {
                 Out-Null
 
             $applied += $file
+
+            if ($file.State -eq 'DELETE') {
+                Remove-ToRecycleBin $target
+                if (Test-Path -LiteralPath $target) { throw "Removal failed: $($file.Relative)" }
+                Write-Host "DELETE $($file.Relative)"
+                continue
+            }
 
             Copy-Item -LiteralPath $source `
                 -Destination $target -Force
@@ -847,7 +951,7 @@ if ($installedExists -and -not $legacyRepo) {
             try {
                 if ($file.State -eq "CREATE") {
                     if (Test-Path -LiteralPath $target) {
-                        Remove-Item -LiteralPath $target -Force
+                        Remove-ToRecycleBin $target
                     }
                 }
                 else {
@@ -967,6 +1071,8 @@ $manifest = [pscustomobject]@{
     Completed        = $false
     RolledBack       = $false
     LauncherHash     = $launcherHash
+    PreviousInventory = @($previousInventory)
+    Inventory        = @($newInventory)
     Files            = @(
         $sources | ForEach-Object {
             [pscustomobject]@{
